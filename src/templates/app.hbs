@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{#each cssFiles}}
+    <link rel="stylesheet" href="{{.}}">
+    {{/each}}
+    {{#each scripts}}
+    <script src="{{.}}"></script>
+    {{/each}}
+    {{#if prod}}
+    <script>
+        require.config({
+            baseUrl: '/static/app'
+        });
+    </script>
+    {{else}}
+    <script>
+        require.config({
+            baseUrl: '/static/app',
+            paths: { 'text': '../lib/text' }
+        });
+    </script>
+    {{/if}}
+    <script>
+        require(['app'], function (app) {
+            window.app = app.run();
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
