@@ -6,9 +6,13 @@ define(function (require) {
 
     var isCompatibleBrowser = require('utils/is-compatible-browser');
 
-    var VisualizationSketch = require('views/visualization-sketch');
+    var VisualizationSketch = require('views/visualization-sketch'),
+        FloatingSiteSelectView = require('views/floating-vlf-site-select');
 
-    app.ui = { visualizationContainer: '#visualization-container' };
+    app.ui = {
+        visualizationContainer: '#visualization-container',
+        controlsContainer: '#controls-container'
+    };
     app.inits.add(function () {
         $.each(this.ui, function (name, id) { app.ui[name] = $(id); });
     });
@@ -21,13 +25,26 @@ define(function (require) {
 
     app.play = function () {
         this.synthEngine.connectNodes();
-        if (this.synthEngine.isReady()) this.synthEngine.play();
-
         var visualizationSketch = new VisualizationSketch();
         this.ui.visualizationContainer
             .empty()
             .append(visualizationSketch.el);
-        visualizationSketch.render();
+        var siteSelectView = new FloatingSiteSelectView();
+        this.ui.controlsContainer
+            .empty()
+            .append(siteSelectView.el);
+        siteSelectView.on('site-selected', function (args) {
+            if (!args.model) return;
+            synthEngine.setStreamSource(args.model.url);
+        });
+        if (this.synthEngine.isReady()) {
+            var selectedVlfSite = siteSelectView.model.get('sites')[0];
+            this.synthEngine
+                .setStreamSource(selectedVlfSite.url)
+                .play();
+            visualizationSketch.render();
+            siteSelectView.render();
+        }
         return this;
     };
 

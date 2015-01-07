@@ -19,12 +19,11 @@ define(function (require) {
         ps.draw = function () {
             audioAnalyser.update();
             var waveData = audioAnalyser.waveData,
-                frequencyData = audioAnalyser.frequencyData,
-                centerX = ps.width / 2,
+                frequencyData = audioAnalyser.frequencyData;
+            var centerX = ps.width / 2,
                 centerY = ps.height / 2,
-                radius = ps.width + (ps.width / 2),
-                n, c, o, x, y, r, w, h;
-            ps.stroke(0, 0);
+                radius = ps.width + (ps.width / 2);
+            var n, c, o, x, y, r, w, h;
             for (var i = 5; i < 74; i++) {
                 n = frequencyData[i];
                 a = plonk.constrain(plonk.scale(waveData[i], 50, 200, 0, 1), 0, 1);
@@ -44,6 +43,8 @@ define(function (require) {
                 w = r + ((drunkW() * r) * a);
                 h = r + ((drunkH() * r) * a);
                 ps.fill(c, c + 1, c + 2, o);
+                ps.strokeWeight(a * 4);
+                ps.stroke(c, (o / 2));
                 ps.ellipse(x, y, w, h);
             }
         };

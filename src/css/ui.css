@@ -1,0 +1,33 @@
+
+.floating-vlf-site-select {
+    margin: 0;
+    padding: 0.5em 0.5em 0.25em 0.65em;
+    background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.floating-vlf-site-select select {
+    margin: 0 0 0.25em -0.25em;
+}
+
+.floating-vlf-site-select h2 {
+    color: #1c1c1c;
+}
+
+.floating-vlf-site-select p {
+    color: #0c0c0c;
+}
+
+.floating-vlf-site-select h2 {
+    margin: 0 0 0.25em 0;
+    font-size: 1em;
+}
+
+.floating-vlf-site-select p {
+    margin: 0;
+    font-size: 0.75em;
+}
+
+.floating-vlf-site-select a {
+    color: #3c3c3c;
+}

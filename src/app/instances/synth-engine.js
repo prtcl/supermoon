@@ -24,10 +24,7 @@ define(function (require) {
 
     synthEngine.connectNodes = function () {
         if (this._ready) return this;
-        // http://78.46.38.217/vlf1
-        // http://78.46.38.217/vlf15
-        // http://78.46.38.217/vlf25
-        this.nodes.streamPlayer = createAudioElement({ type: 'audio/ogg', src: 'http://78.46.38.217/vlf1' });
+        this.nodes.streamPlayer = createAudioElement({ type: 'audio/ogg' });
         this.nodes.streamPlayer.connect(this.nodes.output);
         this.nodes.output.connect(this.nodes.eqLow);
         this.nodes.eqLow.connect(this.nodes.eqLowMid);
@@ -37,6 +34,14 @@ define(function (require) {
         this.nodes.outputCompressor.connect(audioAnalyser.node);
         this.nodes.outputCompressor.connect(audioContext.destination);
         this._ready = true;
+        return this;
+    };
+
+    synthEngine.setStreamSource = function (sourceUrl) {
+        if (!sourceUrl) return this;
+        var mediaElement = this.nodes.streamPlayer.mediaElement;
+        mediaElement.src = sourceUrl;
+        mediaElement.play();
         return this;
     };
 
