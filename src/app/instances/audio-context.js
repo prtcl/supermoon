@@ -1,5 +1,6 @@
 
 define(function (require) {
+
     var audioContext;
     if (typeof AudioContext !== 'undefined') {
         audioContext = new AudioContext();
@@ -7,4 +8,5 @@ define(function (require) {
         audioContext = new webkitAudioContext();
     }
     return audioContext;
+
 });

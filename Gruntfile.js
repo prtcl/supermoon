@@ -38,12 +38,9 @@ module.exports = function(grunt) {
                 files: [
                     { src: 'src/css/*.css', dest: 'build/static/css/', flatten: true, expand: true },
                     { src: 'src/components/jquery/dist/jquery.js', dest: 'build/static/lib/jquery.js' },
-                    { src: 'src/components/underscore/underscore.js', dest: 'build/static/lib/underscore.js' },
-                    { src: 'src/components/backbone/backbone.js', dest: 'build/static/lib/backbone.js' },
-                    { src: 'src/components/d3/d3.js', dest: 'build/static/lib/d3.js' },
-                    { src: 'src/components/handlebars/handlebars.js', dest: 'build/static/lib/handlebars.js' },
                     { src: 'src/components/requirejs/require.js', dest: 'build/static/lib/require.js' },
-                    { src: 'src/components/requirejs-text/text.js', dest: 'build/static/lib/text.js' },
+                    { src: 'src/components/plonk/plonk.js', dest: 'build/static/lib/plonk.js' },
+                    { src: 'src/components/processing/processing.js', dest: 'build/static/lib/processing.js' },
                     { cwd: 'src', src: 'app/**', dest: 'build/static/', expand: true }
                 ]
             }
@@ -52,11 +49,9 @@ module.exports = function(grunt) {
             libs: {
                 src: [
                     'src/components/jquery/dist/jquery.js',
-                    'src/components/underscore/underscore.js',
-                    'src/components/backbone/backbone.js',
-                    'src/components/d3/d3.js',
-                    'src/components/handlebars/handlebars.js',
                     'src/components/requirejs/require.js',
+                    'src/components/plonk/plonk.js',
+                    'src/components/processing/processing.js'
                 ],
                 dest: 'build/static/lib/combo.js'
             }
@@ -76,11 +71,9 @@ module.exports = function(grunt) {
                     ],
                     scripts: [
                         '/static/lib/jquery.js',
-                        '/static/lib/underscore.js',
-                        '/static/lib/backbone.js',
-                        '/static/lib/d3.js',
-                        '/static/lib/handlebars.js',
-                        '/static/lib/require.js'
+                        '/static/lib/require.js',
+                        '/static/lib/plonk.js',
+                        '/static/lib/processing.js'
                     ]
                 },
                 output: 'build/index.html'
