@@ -1,7 +1,13 @@
 {
-  "name": "vlf-viz-001",
+  "name": "supermoon",
   "version": "0.0.1",
   "description": "",
+  "author": "Cory O'Brien <cory@prtcl.cc>",
+  "license": "MIT",
+  "repository" : {
+    "type" : "git",
+    "url" : "git@github.com:prtcl/supermoon.git"
+  },
   "main": "Gruntfile.js",
   "dependencies": {
 
@@ -22,7 +28,5 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Cory O'Brien <cory@prtcl.cc>",
-  "license": "MIT"
+  }
 }

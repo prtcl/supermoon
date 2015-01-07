@@ -1,2 +1,4 @@
 
-basic static app structure with grunt, bower, require, etc
+# Supermoon
+
+Visualizing VLF radio data, live streamed from [http://abelian.org/vlf/](http://abelian.org/vlf/).
