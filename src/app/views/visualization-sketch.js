@@ -3,7 +3,7 @@ define(function (require) {
 
     var audioAnalyser = require('instances/analyser');
 
-    return new Processing.Sketch(function (ps){
+    var visualizationSketch = new Processing.Sketch(function (ps){
 
         var drunkX = plonk.drunk(-1, 1, 0.01),
             drunkY = plonk.drunk(-1, 1, 0.01),
@@ -48,6 +48,27 @@ define(function (require) {
             }
         };
 
+    });
+
+    visualizationSketch.options.pauseOnBlur = true;
+
+    return Backbone.View.extend({
+        tagName: 'canvas',
+        className: 'visualization',
+        initialize: function () {
+            _.bindAll(this, 'resizeVisualization');
+            $(window).on('resize', plonk.limit(100, this.resizeVisualization, this));
+        },
+        render: function () {
+            this.processingSketch = new Processing(this.el, visualizationSketch);
+            this.resizeVisualization();
+            return this;
+        },
+        resizeVisualization: function () {
+            var w = this.$el.width(), h = this.$el.height();
+            this.processingSketch.size(w, h);
+            return this;
+        }
     });
 
 });

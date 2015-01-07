@@ -6,7 +6,7 @@ define(function (require) {
 
     var isCompatibleBrowser = require('utils/is-compatible-browser');
 
-    var visualizationSketch = require('views/visualization-sketch');
+    var VisualizationSketch = require('views/visualization-sketch');
 
     app.ui = { visualizationContainer: '#visualization-container' };
     app.inits.add(function () {
@@ -22,13 +22,12 @@ define(function (require) {
     app.play = function () {
         this.synthEngine.connectNodes();
         if (this.synthEngine.isReady()) this.synthEngine.play();
-        var canvas = this.ui.visualizationContainer;
-        this.visualizationView = new Processing(canvas[0], visualizationSketch);
-        function resizeVisualization () {
-            app.visualizationView.size(canvas.width(), canvas.height());
-        }
-        resizeVisualization();
-        $(window).on('resize', plonk.limit(100, resizeVisualization));
+
+        var visualizationSketch = new VisualizationSketch();
+        this.ui.visualizationContainer
+            .empty()
+            .append(visualizationSketch.el);
+        visualizationSketch.render();
         return this;
     };
 
