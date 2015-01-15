@@ -51,7 +51,7 @@ define(function (require) {
 
     });
 
-    visualizationSketch.options.pauseOnBlur = true;
+    visualizationSketch.options.pauseOnBlur = false;
 
     return Backbone.View.extend({
         tagName: 'canvas',

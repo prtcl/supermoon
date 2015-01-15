@@ -1,7 +1,5 @@
-<h2>Select VLF Site:</h2>
 <select name="vlf-sites">
     {{#each sites}}
     <option class="item" value="{{url}}" {{#if @first}}selected{{/if}}>{{name}} ({{cords}})</option>
     {{/each}}
 </select>
-<p>Data source: <a href="http://abelian.org/vlf/">http://abelian.org/vlf/</a></p>

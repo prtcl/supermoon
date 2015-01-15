@@ -18,7 +18,15 @@ body {
 
 .floating-box {
     position: absolute;
+    z-index: 100;
+}
+
+.floating-box.top-left {
+    top: 0;
+    left: 0;
+}
+
+.floating-box.bottom-left {
     bottom: 0;
     left: 0;
-    z-index: 100;
 }
