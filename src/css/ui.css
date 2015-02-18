@@ -36,6 +36,20 @@
     color: #3c3c3c;
 }
 
+.fail-with-unsupported-modal {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.fail-with-unsupported-modal .modal {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.fail-with-unsupported-modal,
+.fail-with-unsupported-modal a {
+    color: white;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
 .footer {
     margin: 0.7em 0.65em;
     opacity: 0.85;

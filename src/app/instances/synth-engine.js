@@ -40,6 +40,7 @@ define(function (require) {
     synthEngine.setStreamSource = function (sourceUrl) {
         if (!sourceUrl) return this;
         var mediaElement = this.nodes.streamPlayer.mediaElement;
+        if (typeof mediaElement === 'undefined') return this;
         mediaElement.src = sourceUrl;
         mediaElement.play();
         return this;

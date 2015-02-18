@@ -7,23 +7,22 @@ define(function (require) {
     var isCompatibleBrowser = require('utils/is-compatible-browser');
 
     var VisualizationSketch = require('views/visualization-sketch'),
-        FloatingSiteSelectView = require('views/floating-vlf-site-select');
+        FloatingSiteSelectView = require('views/floating-vlf-site-select'),
+        FailWithUnsupportedModal = require('views/fail-with-unsupported-modal');
 
     app.ui = {
         visualizationContainer: '#visualization-container',
-        controlsContainer: '#controls-container'
+        controlsContainer: '#controls-container',
+        modalContainer: '#modal-container'
     };
-    app.inits.add(function () {
-        $.each(this.ui, function (name, id) { app.ui[name] = $(id); });
-    });
 
     app.inits.add(function () {
-        if (!isCompatibleBrowser()) return this.failWithUnsupported();
         this.synthEngine = synthEngine;
         this.play();
     });
 
     app.play = function () {
+        if (!isCompatibleBrowser()) return this.failWithUnsupported();
         this.synthEngine.connectNodes();
         var visualizationSketch = new VisualizationSketch();
         this.ui.visualizationContainer
@@ -44,12 +43,17 @@ define(function (require) {
                 .play();
             visualizationSketch.render();
             siteSelectView.render();
+        } else {
+            this.failWithUnsupported();
         }
         return this;
     };
 
     app.failWithUnsupported = function () {
-
+        var failWithUnsupportedModal = new FailWithUnsupportedModal();
+        this.ui.modalContainer.empty()
+            .append(failWithUnsupportedModal.el);
+        failWithUnsupportedModal.render();
         return this;
     };
 
