@@ -1,5 +1,19 @@
 
 .DS_Store
-node_modules/
-src/components/
-build/
+
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+build
+.grunt
+
+node_modules
+static/build

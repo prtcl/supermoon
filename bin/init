@@ -1,0 +1,16 @@
+#!/bin/sh
+
+
+echo ""
+echo "Installing node modules..."
+
+npm install
+
+echo ""
+echo "Linking app dir to node_modules"
+
+cd node_modules && ln -nsf ../app
+
+echo ""
+echo "*** Initialization Complete ***"
+echo ""
