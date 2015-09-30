@@ -22,17 +22,17 @@ module.exports = [
         lng: 7.42
     },
     {
-        id: 'sebring-florida',
-        name: 'Sebring, Florida',
-        url: 'http://78.46.38.21/vlf19',
-        lat: 27.516,
-        lng: -81.517
+        id: 'sheffield-uk',
+        name: 'Sheffield, UK',
+        url: 'http://78.46.38.217/vlf3',
+        lat: 53.4396,
+        lng: -1.5004
     },
     {
-        id: 'hawley-texas',
-        name: 'Hawley, Texas',
-        url: 'http://78.46.38.217/vlf25',
-        lat: 32.6578,
-        lng: -99.8437
+        id: 'forest-virginia',
+        name: 'Forest, Virginia',
+        url: 'http://78.46.38.217/vlf35',
+        lat: 37.34385,
+        lng: -79.28818
     }
 ];
