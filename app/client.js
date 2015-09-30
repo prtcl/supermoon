@@ -7,7 +7,8 @@ var app = {};
 app.run = function () {
     this.synthEngine = new SynthEngine()
         .on('error', function (err) { console.error(err); })
-        .on('ready', function () { console.log('[ready] synth engine'); });
+        .on('ready', function () { console.log('[ready] synth engine'); })
+        .run();
     this.vlfSiteSelect = new VlfSiteSelect({ el: document.body.querySelector('#vlf-site-select') })
         .on('selected', function (vlfSite) {
             app.synthEngine.setStreamSource(vlfSite.id);
@@ -18,9 +19,7 @@ app.run = function () {
 };
 
 app.play = function () {
-    this.synthEngine
-        .connectNodes()
-        .play();
+    this.synthEngine.play();
     return this;
 };
 
