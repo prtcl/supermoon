@@ -22,6 +22,7 @@ Stream.prototype.start = function () {
     if (this._running) return this;
     this.stream = request(this.url)
         .on('response', _.bind(function (res) {
+            console.log(res.headers);
             this._running = true;
             this.on('stop', function () { res.destroy(); });
             res.on('data', _.bind(this.chunkHandler, this));

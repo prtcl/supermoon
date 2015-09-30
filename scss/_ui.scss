@@ -1,0 +1,29 @@
+
+.vlf-site-select {
+    margin: 0.75em;
+    select {
+        margin: 0 0 0.25em -0.25em;
+        cursor: pointer;
+    }
+    h2 {
+        color: #1c1c1c;
+    }
+    p {
+        color: #0c0c0c;
+    }
+    h2 {
+        margin: 0 0 0.25em 0;
+    }
+    select, h2 {
+        font-size: 11px;
+        line-height: 11px;
+        font-weight: normal;
+    }
+    p {
+        margin: 0;
+        font-size: 0.75em;
+    }
+    a {
+        color: #3c3c3c;
+    }
+}
