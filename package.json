@@ -4,9 +4,9 @@
   "description": "",
   "author": "Cory O'Brien <cory@prtcl.cc>",
   "license": "MIT",
-  "repository" : {
-    "type" : "git",
-    "url" : "git@github.com:prtcl/supermoon.git"
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:prtcl/supermoon.git"
   },
   "main": "index.js",
   "dependencies": {
@@ -17,12 +17,14 @@
     "ejs": "^2.3.1",
     "express": "~4.12.2",
     "express-session": "^1.11.1",
+    "lame": "^1.2.3",
     "lodash": "^3.10.1",
     "morgan": "~1.5.1",
+    "ogg": "^1.2.1",
     "plonk": "*",
     "q": "^1.4.1",
+    "request": "^2.64.0",
     "serve-favicon": "~2.2.0",
-    "slug": "^0.9.1",
     "spinkit": "^1.2.2",
     "uid2": "0.0.3"
   },
