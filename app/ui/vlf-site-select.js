@@ -28,7 +28,7 @@ VlfSiteSelect.prototype.render = function () {
     _.each(vlfSites, function (site) {
         var el = document.createElement('option');
         el.value = site.id;
-        el.innerText = site.name + ' (' + [site.lat, site.lng].join(',') + ')';
+        el.innerHTML = site.name + ' (' + [site.lat, site.lng].join(',') + ')';
         df.appendChild(el);
     }, this);
     this.ui.select.appendChild(df);
