@@ -1,6 +1,7 @@
 
 var SynthEngine = require('app/synth-engine/synth-engine'),
-    VlfSiteSelect = require('app/ui/vlf-site-select');
+    VlfSiteSelect = require('app/ui/vlf-site-select'),
+    Visualization = require('app/ui/visualization');
 
 var app = {};
 
@@ -15,11 +16,16 @@ app.run = function () {
             console.log(vlfSite);
         })
         .render();
+    this.visualization = new Visualization({ el: document.body.querySelector('#visualization') })
+        .fetchData(function () {
+            return app.synthEngine.nodes.audioAnalyser.update();
+        });
     return this;
 };
 
 app.play = function () {
     this.synthEngine.play();
+    this.visualization.run();
     return this;
 };
 
