@@ -6,6 +6,10 @@ var _ = {
 
 var plonk = require('plonk');
 
+function golden (n) {
+    return plonk.constrain(Math.pow(n, 1.61803398875), 0, 1);
+}
+
 function Visualization (args) {
     args || (args = {});
     this.el = args.el;
@@ -43,32 +47,39 @@ Visualization.prototype._drawFrame = function (time, start, i) {
     var data = this.fetchData();
     if (!data) return;
     var centerX = this.width / 2, centerY = this.height / 2, radius = this.width + (this.width / 2),
-        n, o, c, a, r, g, b, x, y, r, w, h;
+        n, o, c, a, x, y, r, w, h;
     for (var i = 5; i < 74; i++) {
         n = data.frequencyData[i];
-        o = plonk.constrain(plonk.scale(data.waveData[i], 50, 200, 0, 1), 0, 1);
+        o = golden(plonk.scale(data.waveData[i], 50, 200, 0, 1), 0, 1);
         if (n < 40) {
             c = 3;
         } else {
-            c = plonk.constrain(plonk.scale(n, 33, 165, 255, 0), 10, 245);
+            c = plonk.constrain(plonk.scale(n, 33, 165, 245, 10), 10, 245);
         }
         if (c > 200) {
             a = 0.93;
         } else {
-            a = plonk.log(plonk.scale(i, 0, 73, 0.18, 0.75));
+            a = golden(plonk.scale(i, 0, 73, 0.18, 0.75));
         }
         x = centerX + (this.drunkX() * (centerX / 10));
         y = centerY + (this.drunkY() * (centerY / 10));
         r = (radius / (i - 5)) + (this.drunkR() * 30) + (o * 50);
         w = r + ((this.drunkW() * r) * o);
         h = r + ((this.drunkH() * r) * o);
-        r = Math.round(c + plonk.rand(-1, 1));
-        g = Math.round(c + plonk.rand(-3, 3));
-        b = Math.round(c + plonk.rand(-10, 10));
         this.alpha(a);
-        this.fill(r, g, b, Math.round(a * 255));
+        this.fill(
+            Math.round(c + plonk.rand(-1, 1)),
+            Math.round(c + plonk.rand(-3, 3)),
+            Math.round(c + plonk.rand(-10, 10)),
+            Math.round(a * 255)
+            );
         this.strokeWeight(o * 4);
-        this.stroke(r, g, b, Math.round((a * 255) / 2));
+        this.stroke(
+            Math.round(c + plonk.rand(-1, 1)),
+            Math.round(c + plonk.rand(-3, 3)),
+            Math.round(c + plonk.rand(-10, 10)),
+            Math.round((a * 255) / 2)
+            );
         this.drawEllipse(x, y, w, h);
     }
 };
@@ -127,7 +138,7 @@ Visualization.prototype.drawEllipse = function (x, y, w, h) {
 Visualization.prototype.run = function () {
     this._time = plonk.now();
     plonk.frames(this._drawFrame, this);
-    plonk.dust(7000, 15000, this.clear, this);
+    plonk.dust(13000, 22000, this.clear, this);
     return this;
 };
 
