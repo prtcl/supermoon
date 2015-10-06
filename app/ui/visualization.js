@@ -47,20 +47,17 @@ Visualization.prototype._drawFrame = function (time, start, i) {
     var data = this.fetchData();
     if (!data) return;
     var centerX = this.width / 2, centerY = this.height / 2, radius = this.width + (this.width / 2),
+        startIndex = 2, endIndex = Math.round(data.frequencyData.length / 2),
         n, o, c, a, x, y, r, w, h;
-    for (var i = 5; i < 74; i++) {
+    for (var i = startIndex; i <= endIndex; i++) {
         n = data.frequencyData[i];
         o = golden(plonk.scale(data.waveData[i], 50, 200, 0, 1), 0, 1);
         if (n < 40) {
-            c = 3;
+            c = plonk.constrain(plonk.scale(n, 0, 40, 30, 88), 30, 88);
         } else {
-            c = plonk.constrain(plonk.scale(n, 33, 165, 245, 10), 10, 245);
+            c = plonk.constrain(plonk.scale(n, 40, 165, 245, 10), 10, 245);
         }
-        if (c > 200) {
-            a = 0.93;
-        } else {
-            a = golden(plonk.scale(i, 0, 73, 0.18, 0.75));
-        }
+        a = golden(plonk.scale(i, startIndex, endIndex, 0.18, 0.75));
         x = centerX + (this.drunkX() * (centerX / 10));
         y = centerY + (this.drunkY() * (centerY / 10));
         r = (radius / (i - 5)) + (this.drunkR() * 30) + (o * 50);
@@ -70,7 +67,7 @@ Visualization.prototype._drawFrame = function (time, start, i) {
         this.fill(
             Math.round(c + plonk.rand(-1, 1)),
             Math.round(c + plonk.rand(-3, 3)),
-            Math.round(c + plonk.rand(-10, 10)),
+            Math.round(c + plonk.rand(-15, 15)),
             Math.round(a * 255)
             );
         this.strokeWeight(o * 4);
