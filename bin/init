@@ -4,6 +4,7 @@
 echo ""
 echo "Installing node modules..."
 
+rm -r node_modules/
 npm install
 
 echo ""
