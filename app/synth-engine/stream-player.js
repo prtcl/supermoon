@@ -1,10 +1,7 @@
 
 var url = require('url');
 
-var mimeTypes = {
-    'ogg': 'audio/ogg',
-    'mp3': 'audio/mpeg'
-};
+var mimeTypes = require('app/data/mime-types');
 
 function canPlayType (el) {
     el || (el = new Audio());

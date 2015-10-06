@@ -1,75 +1,71 @@
 
 var uid2 = require('uid2'),
     EventEmitter = require('events'),
-    request = require('request');
+    request = require('request'),
+    ogg = require('ogg'),
+    lame = require('lame');
 
 var _ = {
     bind: require('lodash/function/bind'),
     create: require('lodash/object/create'),
     each: require('lodash/collection/each'),
-    filter: require('lodash/collection/filter')
+    filter: require('lodash/collection/filter'),
+    where: require('lodash/collection/where')
 };
 
-function Stream (url) {
+var mimeTypes = require('app/data/mime-types');
+
+function OggStream (url, req, res) {
     this._running = false;
+    this.id = uid2(8);
     this.url = url;
-    this.clients = [];
+    this.type = mimeTypes['ogg'];
+    this.client = { req: req, res: res };
 }
 
-Stream.prototype = _.create(EventEmitter.prototype, Stream.prototype);
+OggStream.prototype = _.create(EventEmitter.prototype, OggStream.prototype);
 
-Stream.prototype.start = function () {
+OggStream.prototype.start = function () {
     if (this._running) return this;
-    this.stream = request(this.url)
-        .on('response', _.bind(function (res) {
-            console.log(res.headers);
-            this._running = true;
-            this.on('stop', function () { res.destroy(); });
-            res.on('data', _.bind(this.chunkHandler, this));
-        }, this));
+    function responseHandler (res) {
+        this._running = true;
+        this.res = res;
+        this.client.res.status(200).type(this.type);
+        this.res.pipe(this.client.res);
+        this.emit('start');
+    }
+    this.client.req.on('close', _.bind(this.stop, this));
+    this.req = request(this.url)
+        .on('response', _.bind(responseHandler, this));
     return this;
 };
 
-Stream.prototype.stop = function () {
+OggStream.prototype.stop = function () {
     this._running = false;
-    this.stream.abort();
+    this.client.res.end();
+    this.req && this.req.abort();
+    this.res && this.res.destroy();
     this.emit('stop');
-    console.log('[stopped] ' + this.url);
-    return this;
-};
-
-Stream.prototype.chunkHandler = function (chunk) {
-    _.each(this.clients, function (client) {
-        client.res.write(chunk);
-        console.log('[chunk] ' + client.id + ' ' + Date.now());
-    }, this);
-    this.emit('chunk', chunk);
-};
-
-Stream.prototype.addClient = function (req, res) {
-    if (!this._running) this.start();
-    var id = uid2(8);
-    this.clients.push({ id: id, req: req, res: res });
-    var removeClient = _.bind(this.removeClient, this, id);
-    res.type('audio/ogg');
-    req.on('end', removeClient);
-    req.on('close', removeClient);
-    return this;
-};
-
-Stream.prototype.removeClient = function (id) {
-    this.clients = _.filter(this.clients, function (c) { return c.id !== id; });
-    if (!this.clients.length) this.stop();
     return this;
 };
 
 function RadioStreamer () {
-    this.streams = {};
+    this.streams = [];
 }
 
-RadioStreamer.prototype.subscribe = function (url, req, res) {
-    var stream = this.streams[url] || new Stream(url);
-    stream.addClient(req, res);
+RadioStreamer.prototype.subscribe = function (url, type, req, res) {
+    var Stream = (type === 'ogg' ? OggStream : Mp3Stream),
+        stream = new Stream(url, req, res);
+    this.streams.push(stream);
+    function removeStream () {
+        this.streams = _.filter(this.streams, function (s) { return s.id !== stream.id; });
+        console.log('[stop]', stream.id, stream.url, stream.type);
+        delete stream;
+    }
+    stream
+        .on('start', function () { console.log('[start]', stream.id, stream.url, stream.type); })
+        .on('stop', _.bind(removeStream, this, stream))
+        .start();
     return stream;
 };
 
