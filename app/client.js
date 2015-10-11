@@ -1,7 +1,8 @@
 
 var SynthEngine = require('app/synth-engine/synth-engine'),
     VlfSiteSelect = require('app/ui/vlf-site-select'),
-    Visualization = require('app/ui/visualization');
+    Visualization = require('app/ui/visualization'),
+    InfoModal = require('app/ui/info-modal');
 
 var app = {};
 
@@ -13,12 +14,15 @@ app.run = function () {
     this.vlfSiteSelect = new VlfSiteSelect({ el: document.body.querySelector('#vlf-site-select') })
         .on('selected', function (vlfSite) {
             app.synthEngine.setStreamSource(vlfSite.id);
-            console.log(vlfSite);
         })
         .render();
     this.visualization = new Visualization({ el: document.body.querySelector('#visualization') })
         .fetchData(function () {
             return app.synthEngine.nodes.audioAnalyser.update();
+        });
+    this.infoModal = new InfoModal({ el: document.body.querySelector('#info-modal') })
+        .on('play', function () {
+            app.play();
         });
     return this;
 };
@@ -31,7 +35,6 @@ app.play = function () {
 
 window.addEventListener('load', function () {
     window.app = app.run();
-    app.play();
 });
 
 module.exports = app;
