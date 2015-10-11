@@ -11,7 +11,7 @@ var app = express(),
     debug = require('debug')('supermoon:server'),
     server = require('http').Server(app);
 
-var port = process.env.PORT || '3000';
+var port = process.argv[2] || process.env.PORT || '3000';
 app.set('port', port);
 
 // view engine setup

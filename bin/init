@@ -10,7 +10,12 @@ npm install
 echo ""
 echo "Linking app dir to node_modules"
 
-cd node_modules && ln -nsf ../app
+cd node_modules && ln -nsf ../app && cd ..
+
+echo ""
+echo "Building JS and SCSS"
+
+grunt build
 
 echo ""
 echo "*** Initialization Complete ***"
