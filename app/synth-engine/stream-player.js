@@ -1,5 +1,11 @@
 
-var url = require('url');
+var _ = {
+    bind: require('lodash/function/bind'),
+    create: require('lodash/object/create')
+};
+
+var url = require('url'),
+    EventEmitter = require('events');
 
 var mimeTypes = require('app/data/mime-types');
 
@@ -25,8 +31,34 @@ function StreamPlayer (audioContext) {
     this.el.type = mimeTypes[this.type];
     this.node = audioContext.createMediaElementSource(this.el);
     this.baseUrl = '/stream';
+    this.el.addEventListener('canplay', _.bind(function (e) {
+        this.emit('canplay', e);
+    }, this));
+    this.el.addEventListener('abort', _.bind(function (e) {
+        this.emit('abort', e);
+    }, this));
+    this.el.addEventListener('error', _.bind(function (e) {
+        this.emit('error', e);
+    }, this));
+    this.el.addEventListener('loadeddata', _.bind(function (e) {
+        this.emit('loadeddata', e);
+    }, this));
+    this.el.addEventListener('playing', _.bind(function (e) {
+        this.emit('playing', e);
+    }, this));
+    this.el.addEventListener('progress', _.bind(function (e) {
+        this.emit('progress', e);
+    }, this));
+    this.el.addEventListener('suspend', _.bind(function (e) {
+        this.emit('suspend', e);
+    }, this));
+    this.el.addEventListener('waiting', _.bind(function (e) {
+        this.emit('waiting', e);
+    }, this));
     if (this.id) this.setStreamSource(this.id);
 }
+
+StreamPlayer.prototype = _.create(EventEmitter.prototype, StreamPlayer.prototype);
 
 StreamPlayer.prototype.setStreamSource = function (id) {
     if (!id || !this.isReady()) return this;

@@ -32,19 +32,24 @@
     <div id="visualization" class="visualization">
         <canvas></canvas>
     </div>
-    <div id="vlf-site-select" class="floating-box top-left vlf-site-select">
+    <div id="vlf-site-select" class="floating-box top-left vlf-site-select hidden">
         <select></select>
     </div>
     <div id="footer" class="footer floating-box bottom-left">
-        <p><a href="https://github.com/prtcl/supermoon">Supermoon</a> by <a href="http://prtcl.cc">Cory O'Brien</a> &copy; 2015</p>
+        <p><a href="https://github.com/prtcl/supermoon" target="_blank">Supermoon</a> by <a href="http://prtcl.cc" target="_blank">Cory O'Brien</a> &copy; 2015</p>
     </div>
-    <div id="info-modal" class="info-modal container">
+    <div id="info-modal" class="modal info-modal container">
         <div class="copy">
             <h1>Supermoon</h1>
             <p>Supermoon is a generative A/V installation that runs in your web browser. The audio is an unprocessed live stream of VLF radio provided by <a href="http://abelian.org/vlf/" target="_blank">abelian.org</a>, which is analyzed and used to drive a reactive animation.</p>
             <p>You will need a recent version of Chrome or Firefox and a reasonably fast computer to view the work. Good quality speakers or headphones are recommended.</p>
             <p>Supermoon was created by <a href="http://prtcl.cc" target="_blank">Cory O'Brien</a>. Code is available on <a href="https://github.com/prtcl/supermoon" target="_blank">Github</a>.</p>
             <button class="button play">Play</button>
+        </div>
+    </div>
+    <div id="error-modal" class="modal error-modal container hidden">
+        <div class="copy">
+            <p class="message"></p>
         </div>
     </div>
 </div>

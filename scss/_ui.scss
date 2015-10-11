@@ -17,6 +17,18 @@
     }
 }
 
+@include keyframes(oscillate-opacity) {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.65;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .fade-in {
     opacity: 1;
     @include animation (fade-in 0.5s);
@@ -66,7 +78,7 @@
     }
 }
 
-.info-modal {
+.modal {
     background-color: #c0c0c0;
     overflow: hidden;
     z-index: 100;
@@ -85,12 +97,31 @@
         a {
             color: white;
         }
+    }
+}
+
+.info-modal {
+    .copy {
         .play {
             width: 100%;
-            background-color: #c77d7d;
+            background-color: #d05454;
+            transition: background-color 0.25s;
             &:hover {
                 background-color: #79CCFF;
             }
+        }
+    }
+}
+
+.error-modal {
+    background-color: rgba(0, 0, 0, 0.75);
+    .copy {
+        padding: 0;
+        background-color: transparent;
+        text-align: center;
+        color: #b13737;
+        .message {
+            @include animation (oscillate-opacity 1.5s infinite);
         }
     }
 }

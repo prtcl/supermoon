@@ -32,6 +32,7 @@ VlfSiteSelect.prototype.render = function () {
         df.appendChild(el);
     }, this);
     this.ui.select.appendChild(df);
+    this.el.classList.remove('hidden');
     var selected = this.el.querySelector('select option:checked'),
         site = _.findWhere(vlfSites, { id: selected.value });
     this.emit('selected', site);
