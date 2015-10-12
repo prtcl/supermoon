@@ -94,6 +94,12 @@
         z-index: 50;
         border-radius: 5px;
         color: white;
+        @media (max-width: 1024px) {
+            width: 50%;
+        }
+        @media (max-width: 555px) {
+            width: 95%;
+        }
         a {
             color: white;
         }
