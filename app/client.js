@@ -40,8 +40,8 @@ app.play = function () {
         .on('waiting', function () {
             app.errorModal.show('Audio stream is loading...');
         });
-    if (streamPlayer.type === 'mp3' || streamPlayer.type === 'unsupported') {
-        app.errorModal.show("MP3 streaming isn't supported at this time. Please use a recent version of Chrome or Firefox.");
+    if (streamPlayer.type !== 'ogg') {
+        app.errorModal.show("It doesn't look like your browser supports ogg/vorbis audio playback. Please use a recent version of Chrome or Firefox.");
     } else {
         this.vlfSiteSelect.render();
         this.synthEngine.play();
