@@ -1,57 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Supermoon</title>
-    <meta name="description" content="Supermoon is an audio-reactive visualization of real-time natural radio streams.">
-    <meta name="author" content="Cory O'Brien">
-    <link rel="canonical" href="http://supermoon.prtcl.cc">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+  <meta charset="utf-8">
+  <title>Supermoon</title>
+  <meta name="description" content="Supermoon is an audio-reactive visualization of real-time natural radio streams.">
+  <meta name="author" content="Cory O'Brien">
+  <link rel="canonical" href="http://supermoon.prtcl.cc">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 
-    <meta property="og:title" content="Supermoon">
-    <meta property="og:description" content="Supermoon is an audio-reactive visualization of real-time natural radio streams.">
-    <meta property="og:url" content="http://supermoon.prtcl.cc">
-    <meta property="og:image" content="http://supermoon.prtcl.cc/static/img/supermoon-screenshot-01.png">
+  <meta property="og:title" content="Supermoon">
+  <meta property="og:description" content="Supermoon is an audio-reactive visualization of real-time natural radio streams.">
+  <meta property="og:url" content="http://supermoon.prtcl.cc">
+  <meta property="og:image" content="http://supermoon.prtcl.cc/static/img/supermoon-screenshot-01.png">
 
-    <link rel='stylesheet' href='/static/build/main.css' />
-    <script src="/static/build/client.js"></script>
+  <link rel='stylesheet' href='/static/build/main.css' />
+  <script src="/static/build/app.js"></script>
 
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-47948701-4', 'auto');
-      ga('send', 'pageview');
-    </script>
+    ga('create', 'UA-47948701-4', 'auto');
+    ga('send', 'pageview');
+  </script>
 
 </head>
 <body>
-<div id="app-container" class="container">
+  <div id="app-container" class="container">
     <div id="visualization" class="visualization">
-        <canvas></canvas>
+      <canvas></canvas>
     </div>
     <div id="vlf-site-select" class="floating-box top-left vlf-site-select hidden">
-        <select></select>
+      <select></select>
     </div>
     <div id="footer" class="footer floating-box bottom-left">
-        <p><a href="https://github.com/prtcl/supermoon" target="_blank">Supermoon</a> by <a href="http://prtcl.cc" target="_blank">Cory O'Brien</a> &copy; 2015</p>
+      <p><a href="https://github.com/prtcl/supermoon" target="_blank">Supermoon</a> by <a href="http://prtcl.cc" target="_blank">Cory O'Brien</a> &copy; 2015</p>
     </div>
     <div id="info-modal" class="modal info-modal container">
-        <div class="copy">
-            <h1>Supermoon</h1>
-            <p>Supermoon is an audio-reactive visualization of real-time natural (very low frequency) radio streams. The visualization is tuned to emphasize the unique phenomena of VLF radio like solar activity, lightning strikes, and man-made interference.</p>
-            <p>A recent version of Chrome/Firefox and decent quality speakers/headphones are required to view the work.</p>
-            <p>Supermoon was created by <a href="http://prtcl.cc" target="_blank">Cory O'Brien</a>. Code is available on <a href="https://github.com/prtcl/supermoon" target="_blank">Github</a>. Radio streams are provided by <a href="http://abelian.org/vlf/" target="_blank">abelian.org</a>.</p>
-            <button class="button play">Play</button>
-        </div>
+      <div class="copy">
+        <h1>Supermoon</h1>
+        <p>Supermoon is an audio-reactive visualization of real-time natural (very low frequency) radio streams. The visualization is tuned to emphasize the unique phenomena of VLF radio like solar activity, lightning strikes, and man-made interference.</p>
+        <p>A recent version of Chrome/Firefox and decent quality speakers/headphones are required to view the work.</p>
+        <p>Supermoon was created by <a href="http://prtcl.cc" target="_blank">Cory O'Brien</a>. Code is available on <a href="https://github.com/prtcl/supermoon" target="_blank">Github</a>. Radio streams are provided by <a href="http://abelian.org/vlf/" target="_blank">abelian.org</a>.</p>
+        <button class="button play">Play</button>
+      </div>
     </div>
     <div id="error-modal" class="modal error-modal container hidden">
-        <div class="copy">
-            <p class="message"></p>
-        </div>
+      <div class="copy">
+        <p class="message"></p>
+      </div>
     </div>
-</div>
+  </div>
 </body>
 </html>
