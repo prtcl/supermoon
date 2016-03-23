@@ -1,9 +1,10 @@
 {
   "name": "supermoon",
   "version": "1.0.0",
-  "description": "",
+  "description": "Visualizing VLF radio data, live streamed from http://abelian.org/vlf/.",
   "author": "Cory O'Brien <cory@prtcl.cc>",
   "license": "MIT",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git@github.com:prtcl/supermoon.git"

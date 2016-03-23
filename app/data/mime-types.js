@@ -1,5 +1,5 @@
 
 module.exports = {
-    'ogg': 'audio/ogg',
-    'mp3': 'audio/mpeg'
+  'ogg': 'audio/ogg',
+  'mp3': 'audio/mpeg'
 };

@@ -11,10 +11,11 @@ module.exports = function (grunt) {
         src: ['app/app.js'],
         dest: 'static/build/app.js',
         options: {
-          paths: ['./node_modules','./app'],
           browserifyOptions: {
-            debug: true
-          }
+            debug: true,
+            standalone: 'app'
+          },
+          paths: ['./node_modules','./app']
         }
       }
     },
