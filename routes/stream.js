@@ -5,7 +5,7 @@ const express = require('express'),
 const _ = { findWhere: require('lodash/collection/findWhere') };
 
 const vlfSites = require('app/data/vlf-sites'),
-      RadioStreamer = require('app/lib/radio-streamer');
+      RadioStreamer = require('../lib/radio-streamer');
 
 const radioSteamer = new RadioStreamer();
 

@@ -5,7 +5,8 @@ const express = require('express'),
       logger = require('morgan'),
       cookieParser = require('cookie-parser'),
       bodyParser = require('body-parser'),
-      favicon = require('serve-favicon');
+      favicon = require('serve-favicon'),
+      plonk = require('plonk');
 
 const app = express(),
       debug = require('debug')('supermoon:server'),
@@ -13,6 +14,8 @@ const app = express(),
 
 const PORT = process.argv[2] || process.env.PORT || '3000',
       NODE_ENV = process.env.NODE_ENV = (process.argv[3] || process.env.NODE_ENV || 'development');
+
+const db = require('monk')('localhost/supermoon');
 
 app.set('port', PORT);
 app.set('environment', NODE_ENV);
@@ -34,7 +37,11 @@ if (NODE_ENV === 'production') {
   app.use(logger('dev'));
 }
 
+const healthCheck = require('./lib/health-check')(db);
+healthCheck.run();
+
 app.use('/stream', require('./routes/stream'));
+app.use('/api', require('./routes/api')(db));
 app.use('/', require('./routes/pages'));
 
 // catch 404 and forward to error handler
@@ -82,7 +89,7 @@ server.on('error', (error) => {
 
 server.on('listening', () => {
   var addr = server.address(),
-      bind = typeof addr === 'string' ? 'pipe ' + addr : 'PORT ' + addr.PORT;
+      bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug(`Listening on ${bind}`);
 });
 

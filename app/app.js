@@ -1,4 +1,6 @@
 
+const axios = require('axios');
+
 const SynthEngine = require('app/synth-engine/synth-engine'),
       VlfSiteSelect = require('app/ui/vlf-site-select'),
       Visualization = require('app/ui/visualization'),
@@ -15,8 +17,8 @@ app.run = function () {
     .on('ready', () => { console.log('[ready] synth engine'); })
     .run();
   this.vlfSiteSelect = new VlfSiteSelect(document.body.querySelector('#vlf-site-select'))
-    .on('selected', (vlfSite) => {
-      this.synthEngine.setStreamSource(vlfSite.id);
+    .on('selected', (vlfSiteId) => {
+      this.synthEngine.setStreamSource(vlfSiteId);
     });
   this.visualization = new Visualization(document.body.querySelector('#visualization'))
     .fetchData(() => {
@@ -45,9 +47,14 @@ app.play = function () {
   if (streamPlayer.type !== 'ogg') {
     app.errorModal.show("It doesn't look like your browser supports ogg/vorbis audio playback. Please use a recent version of Chrome or Firefox.");
   } else {
-    this.vlfSiteSelect.render();
     this.synthEngine.play();
     this.visualization.run();
+    axios.get('/api/sites')
+      .then((res) => {
+        if (!res.data || !res.data.length) return;
+        var sites = res.data.filter(s => s.healthy);
+        this.vlfSiteSelect.render(sites);
+      });
   }
   return this;
 };

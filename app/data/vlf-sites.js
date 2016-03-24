@@ -29,10 +29,24 @@ module.exports = [
     lng: -1.5004
   },
   {
+    id: 'sebring-florida',
+    name: 'Sebring, Florida',
+    url: 'http://78.46.38.217/vlf19',
+    lat: 27.516,
+    lng: 81.517
+  },
+  {
     id: 'forest-virginia',
     name: 'Forest, Virginia',
     url: 'http://78.46.38.217/vlf35',
     lat: 37.34385,
     lng: -79.28818
+  },
+  {
+    id: 'surfside-beach-south-carolina',
+    name: 'Surfside Beach, South Carolina',
+    url: 'http://78.46.38.217/vlf34',
+    lat: 33.6213,
+    lng: 78.9649
   }
 ];
