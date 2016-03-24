@@ -53,7 +53,15 @@ module.exports = function (grunt) {
     },
     nodemon: {
       dev: {
-        script: 'index.js'
+        script: 'index.js',
+        cwd: __dirname,
+        options: {
+          env: {
+            DEBUG: 'supermoon:*',
+            NODE_ENV: 'development',
+            PORT: '3000'
+          }
+        }
       }
     },
     concurrent: {
