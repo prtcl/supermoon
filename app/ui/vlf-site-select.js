@@ -25,7 +25,7 @@ VlfSiteSelect.prototype.render = function (sites) {
   });
   this.ui.select.appendChild(df);
   this.el.classList.remove('hidden');
-  var selected = this.el.querySelector('select option:checked'),
+  var selected = this.el.querySelector('select option:checked');
   this.emit('selected', selected.value);
   return this;
 };

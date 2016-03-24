@@ -59,7 +59,8 @@ module.exports = function (grunt) {
           env: {
             DEBUG: 'supermoon:*',
             NODE_ENV: 'development',
-            PORT: '3000'
+            PORT: '3000',
+            HEALTH_CHECK: false
           }
         }
       }

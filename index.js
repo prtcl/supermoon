@@ -13,7 +13,8 @@ const app = express(),
       server = require('http').Server(app);
 
 const PORT = process.argv[2] || process.env.PORT || '3000',
-      NODE_ENV = process.env.NODE_ENV = (process.argv[3] || process.env.NODE_ENV || 'development');
+      NODE_ENV = process.env.NODE_ENV = (process.argv[3] || process.env.NODE_ENV || 'development'),
+      HEALTH_CHECK = process.env.HEALTH_CHECK = (process.argv[4] || process.env.HEALTH_CHECK || false);
 
 const db = require('monk')('localhost/supermoon');
 
@@ -37,8 +38,10 @@ if (NODE_ENV === 'production') {
   app.use(logger('dev'));
 }
 
-const healthCheck = require('./lib/health-check')(db);
-healthCheck.run();
+if (!HEALTH_CHECK) {
+  const healthCheck = require('./lib/health-check')(db);
+  healthCheck.run();
+}
 
 app.use('/stream', require('./routes/stream'));
 app.use('/api', require('./routes/api')(db));
