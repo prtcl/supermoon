@@ -1,0 +1,18 @@
+{
+  "esnext": true,
+  "browser": true,
+  "node": true,
+  "strict": false,
+  "expr": true,
+  "undef": true,
+  "predef": [
+    "process",
+    "global",
+    "require",
+    "console",
+    "describe",
+    "it",
+    "AudioContext",
+    "webkitAudioContext"
+  ]
+}

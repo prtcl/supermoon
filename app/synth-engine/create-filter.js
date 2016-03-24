@@ -1,8 +1,7 @@
 
-var _ = { assign: require('lodash/object/assign') };
+const _ = { assign: require('lodash/object/assign') };
 
 module.exports = function (args, audioContext) {
-  args || (args = {});
   var options = _.assign({ type: 'lowpass', frequency: 1000, q: 0.0001, gain: 0 }, args),
       filter = audioContext.createBiquadFilter();
   filter.type = options.type;

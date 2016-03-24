@@ -1,5 +1,5 @@
 
-var plonk = {
+const plonk = {
   constrain: require('plonk/lib/math/constrain'),
   debounce: require('plonk/lib/util/debounce'),
   drunk: require('plonk/lib/math/drunk'),
@@ -14,18 +14,21 @@ function golden (n) {
   return plonk.constrain(Math.pow(n, 1.61803398875), 0, 1);
 }
 
-function Visualization (el, args) {
-  args || (args = {});
+function color (r, g, b, a) {
+  return `rgba(${r}, ${g}, ${b}, ${a})`;
+}
+
+function Visualization (el, args = {}) {
   this.el = el;
   this.ui = { canvas: this.el.querySelector('canvas') };
   this.context = this.ui.canvas.getContext('2d');
-  this.drunkX = plonk.drunk(-1, 1, 0.01),
-  this.drunkY = plonk.drunk(-1, 1, 0.01),
-  this.drunkR = plonk.drunk(-1, 1, 0.01),
-  this.drunkW = plonk.drunk(-1, 1, 0.01),
+  this.drunkX = plonk.drunk(-1, 1, 0.01);
+  this.drunkY = plonk.drunk(-1, 1, 0.01);
+  this.drunkR = plonk.drunk(-1, 1, 0.01);
+  this.drunkW = plonk.drunk(-1, 1, 0.01);
   this.drunkH = plonk.drunk(-1, 1, 0.01);
   this.resize();
-  window.addEventListener('resize', plonk.debounce(this.resize.bind(this)));
+  window.addEventListener('resize', plonk.debounce(() => { this.resize(); }));
 }
 
 Visualization.prototype.resize = function () {
@@ -47,22 +50,22 @@ Visualization.prototype._drawFrame = function (interval, elapsed) {
   var data = this.fetchData();
   if (!data) return;
   var centerX = this.width / 2, centerY = this.height / 2, radius = this.width + (this.width / 2),
-      startIndex = 2, endIndex = Math.round(data.frequencyData.length / 2),
-      n, o, c, a, x, y, r, w, h;
+      startIndex = 2, endIndex = Math.round(data.frequencyData.length / 2);
   for (var i = startIndex; i <= endIndex; i++) {
-    n = data.frequencyData[i];
-    o = golden(plonk.scale(data.waveData[i], 50, 200, 0, 1), 0, 1);
+    let n = data.frequencyData[i];
+    let o = golden(plonk.scale(data.waveData[i], 50, 200, 0, 1), 0, 1);
+    let c;
     if (n < 40) {
       c = plonk.constrain(plonk.scale(n, 0, 40, 30, 88), 30, 88);
     } else {
       c = plonk.constrain(plonk.scale(n, 40, 165, 245, 10), 10, 245);
     }
-    a = golden(plonk.scale(i, startIndex, endIndex, 0.18, 0.75));
-    x = centerX + (this.drunkX() * (centerX / 10));
-    y = centerY + (this.drunkY() * (centerY / 10));
-    r = (radius / (i - 5)) + (this.drunkR() * 30) + (o * 50);
-    w = r + ((this.drunkW() * r) * o);
-    h = r + ((this.drunkH() * r) * o);
+    let a = golden(plonk.scale(i, startIndex, endIndex, 0.18, 0.75));
+    let x = centerX + (this.drunkX() * (centerX / 10));
+    let y = centerY + (this.drunkY() * (centerY / 10));
+    let r = (radius / (i - 5)) + (this.drunkR() * 30) + (o * 50);
+    let w = r + ((this.drunkW() * r) * o);
+    let h = r + ((this.drunkH() * r) * o);
     this.alpha(a);
     this.fill(
       Math.round(c + plonk.rand(-1, 1)),
@@ -86,17 +89,13 @@ Visualization.prototype.clear = function () {
   return this;
 };
 
-Visualization.prototype.color = function (r, g, b, a) {
-  return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
-};
-
 Visualization.prototype.alpha = function (a) {
   this.context.globalAlpha = a;
   return this;
 };
 
 Visualization.prototype.fill = function (r, g, b, a) {
-  this.context.fillStyle = this.color(r, g, b, a);
+  this.context.fillStyle = color(r, g, b, a);
   return this;
 };
 
@@ -106,7 +105,7 @@ Visualization.prototype.strokeWeight = function (w) {
 };
 
 Visualization.prototype.stroke = function (r, g, b, a) {
-  this.context.strokeStyle = this.color(r, g, b, a);
+  this.context.strokeStyle = color(r, g, b, a);
   return this;
 };
 
@@ -133,8 +132,8 @@ Visualization.prototype.drawEllipse = function (x, y, w, h) {
 };
 
 Visualization.prototype.run = function () {
-  plonk.frames(this._drawFrame.bind(this));
-  plonk.dust(13000, 22000, this.clear.bind(this));
+  plonk.frames((interval, elapsed) => { this._drawFrame(interval, elapsed); });
+  plonk.dust(13000, 22000, () => { this.clear(); });
   return this;
 };
 

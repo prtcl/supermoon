@@ -1,10 +1,9 @@
 
-var EventEmitter = require('events');
+const EventEmitter = require('events');
 
-var plonk = { wait: require('plonk/lib/timers/wait') };
+const plonk = { wait: require('plonk/lib/timers/wait') };
 
-function InfoModal (el, args) {
-  args || (args = {});
+function InfoModal (el, args = {}) {
   this.el = el;
   this.ui = { playButton: this.el.querySelector('.play') };
   this.ui.playButton.addEventListener('click', this._clickHandler.bind(this));
@@ -22,9 +21,9 @@ InfoModal.prototype.close = function () {
   this.el.classList.remove('fade-in');
   this.el.classList.add('fade-out');
   plonk.wait(1500)
-    .then(function () {
+    .then(() => {
       this.el.classList.add('hidden');
-    }.bind(this));
+    });
   return this;
 };
 

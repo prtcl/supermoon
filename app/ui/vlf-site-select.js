@@ -1,29 +1,29 @@
 
-var EventEmitter = require('events');
+const EventEmitter = require('events');
 
-var _ = { findWhere: require('lodash/collection/findWhere') };
+const _ = { findWhere: require('lodash/collection/findWhere') };
 
-var vlfSites = require('app/data/vlf-sites');
+const vlfSites = require('app/data/vlf-sites');
 
 function VlfSiteSelect (el, args) {
   args || (args = {});
   this.el = el;
   this.ui = { select: this.el.querySelector('select') };
-  this.ui.select.addEventListener('change', function (e) {
+  this.ui.select.addEventListener('change', (e) => {
     var id = e.target.value,
     site = _.findWhere(vlfSites, { id: id });
     this.emit('selected', site);
-  }.bind(this));
+  });
 }
 
 VlfSiteSelect.prototype = Object.create(EventEmitter.prototype);
 
 VlfSiteSelect.prototype.render = function () {
   var df = document.createDocumentFragment();
-  vlfSites.forEach(function (site) {
+  vlfSites.forEach((site) => {
     var el = document.createElement('option');
     el.value = site.id;
-    el.innerHTML = site.name + ' (' + [site.lat, site.lng].join(',') + ')';
+    el.innerHTML = `${site.name} (${site.lat}, ${site.lng})`;
     df.appendChild(el);
   });
   this.ui.select.appendChild(df);

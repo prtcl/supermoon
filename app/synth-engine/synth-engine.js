@@ -1,21 +1,21 @@
 
-var _ = { isUndefined: require('lodash/lang/isUndefined') };
+const _ = { isUndefined: require('lodash/lang/isUndefined') };
 
-var EventEmitter = require('events');
+const EventEmitter = require('events');
 
-var audioContext = require('app/synth-engine/audio-context'),
-    createGain = require('app/synth-engine/create-gain'),
-    createCompressor = require('app/synth-engine/create-compressor'),
-    createFilter = require('app/synth-engine/create-filter'),
-    StreamPlayer = require('app/synth-engine/stream-player'),
-    AudioAnalyser = require('app/synth-engine/audio-analyser');
+const audioContext = require('app/synth-engine/audio-context'),
+      createGain = require('app/synth-engine/create-gain'),
+      createCompressor = require('app/synth-engine/create-compressor'),
+      createFilter = require('app/synth-engine/create-filter'),
+      StreamPlayer = require('app/synth-engine/stream-player'),
+      AudioAnalyser = require('app/synth-engine/audio-analyser');
 
 function SynthEngine () {
   this.audioContext = audioContext();
   this.nodes = {};
   this._ready = false;
   this._compatibleBrowser = this.isCompatibleBrowser();
-};
+}
 
 SynthEngine.prototype = Object.create(EventEmitter.prototype);
 

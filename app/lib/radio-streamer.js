@@ -1,17 +1,15 @@
 
-var uid2 = require('uid2'),
-    EventEmitter = require('events'),
-    request = require('request');
+const uid2 = require('uid2'),
+      EventEmitter = require('events'),
+      request = require('request');
 
-var _ = { filter: require('lodash/collection/filter') };
-
-var mimeTypes = require('app/data/mime-types');
+const mimeTypes = require('app/data/mime-types');
 
 function OggStream (url, req, res) {
   this._running = false;
   this.id = uid2(8);
   this.url = url;
-  this.type = mimeTypes['ogg'];
+  this.type = mimeTypes.ogg;
   this.client = { req: req, res: res };
 }
 
@@ -19,16 +17,15 @@ OggStream.prototype = Object.create(EventEmitter.prototype);
 
 OggStream.prototype.start = function () {
   if (this._running) return this;
-  function responseHandler (res) {
-    this._running = true;
-    this.res = res;
-    this.client.res.status(200).type(this.type);
-    this.res.pipe(this.client.res);
-    this.emit('start');
-  }
   this.client.req.on('close', this.stop.bind(this));
   this.req = request(this.url)
-    .on('response', responseHandler.bind(this));
+    .on('response', (res) => {
+      this._running = true;
+      this.res = res;
+      this.client.res.status(200).type(this.type);
+      this.res.pipe(this.client.res);
+      this.emit('start');
+    });
   return this;
 };
 
@@ -85,18 +82,16 @@ function RadioStreamer () {
 }
 
 RadioStreamer.prototype.subscribe = function (url, type, req, res) {
-  var Stream = (type === 'ogg' ? OggStream : Mp3Stream),
-      stream = new Stream(url, req, res);
+  // var RadioStream = (type === 'ogg' ? OggStream : Mp3Stream),
+  var RadioStream = OggStream,
+      stream = new RadioStream(url, req, res)
+        .on('start', () => { console.log('[start]', stream.id, stream.url, stream.type); })
+        .on('stop', () => {
+          this.streams = this.streams.filter((s) => { s.id !== stream.id; });
+          console.log('[stop]', stream.id, stream.url, stream.type);
+        });
   this.streams.push(stream);
-  function removeStream () {
-    this.streams = _.filter(this.streams, function (s) { return s.id !== stream.id; });
-    console.log('[stop]', stream.id, stream.url, stream.type);
-    delete stream;
-  }
-  stream
-    .on('start', function () { console.log('[start]', stream.id, stream.url, stream.type); })
-    .on('stop', removeStream.bind(this))
-    .start();
+  stream.start();
   return stream;
 };
 

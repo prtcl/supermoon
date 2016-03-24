@@ -15,7 +15,8 @@ module.exports = function (grunt) {
             debug: true,
             standalone: 'app'
           },
-          paths: ['./node_modules','./app']
+          paths: ['./node_modules','./app'],
+          transform: ["babelify"]
         }
       }
     },

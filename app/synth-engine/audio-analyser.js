@@ -1,8 +1,7 @@
 
-var _ = { assign: require('lodash/object/assign') };
+const _ = { assign: require('lodash/object/assign') };
 
 function AudioAnalyser (args, audioContext) {
-  args || (args = {});
   var options = _.assign({ size: 1024, max: 0, min: -100 }, args);
   this.node = audioContext.createAnalyser();
   this.node.fftSize = options.size;

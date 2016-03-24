@@ -1,15 +1,15 @@
 
-var express = require('express'),
-    router = express.Router();
+const express = require('express'),
+      router = express.Router();
 
-var _ = { findWhere: require('lodash/collection/findWhere') };
+const _ = { findWhere: require('lodash/collection/findWhere') };
 
-var vlfSites = require('app/data/vlf-sites'),
-    RadioStreamer = require('app/lib/radio-streamer');
+const vlfSites = require('app/data/vlf-sites'),
+      RadioStreamer = require('app/lib/radio-streamer');
 
-var radioSteamer = new RadioStreamer();
+const radioSteamer = new RadioStreamer();
 
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
   var id = req.query.id || '',
       type = req.query.type || 'ogg',
       vlfSite = _.findWhere(vlfSites, { id: id });
