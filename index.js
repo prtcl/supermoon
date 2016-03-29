@@ -14,7 +14,7 @@ const app = express(),
 
 const PORT = process.argv[2] || process.env.PORT || '3000',
       NODE_ENV = process.env.NODE_ENV = (process.argv[3] || process.env.NODE_ENV || 'development'),
-      HEALTH_CHECK = process.env.HEALTH_CHECK = (process.argv[4] || process.env.HEALTH_CHECK || false);
+      HEALTH_CHECK = (process.env.HEALTH_CHECK === 'true');
 
 const db = require('monk')('localhost/supermoon');
 
@@ -38,7 +38,7 @@ if (NODE_ENV === 'production') {
   app.use(logger('dev'));
 }
 
-if (!HEALTH_CHECK) {
+if (HEALTH_CHECK) {
   const healthCheck = require('./lib/health-check')(db);
   healthCheck.run();
 }
