@@ -7,15 +7,23 @@ module.exports = {
     "es6": true,
     "mocha": false
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended"
+  ],
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 6,
     "ecmaFeatures": {
-        "experimentalObjectRestSpread": true
+      "jsx": true,
+      "experimentalObjectRestSpread": true
     }
   },
+  "plugins": [
+    "babel"
+  ],
   "globals": {
+    "webkitAudioContext": true
   },
   "rules": {
     "accessor-pairs": "error",

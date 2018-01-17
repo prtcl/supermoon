@@ -17,6 +17,7 @@
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "hyperapp": "^1.0.2",
     "lodash": "^4.17.4",
     "mongodb": "^3.0.1",
     "monk": "^6.0.5",
@@ -28,11 +29,24 @@
     "uid2": "0.0.3"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "eslint": "^4.15.0",
-    "nodemon": "^1.14.11"
+    "eslint-plugin-babel": "^4.1.2",
+    "nodemon": "^1.14.11",
+    "parallelshell": "^3.0.2",
+    "webpack": "^3.10.0"
   },
   "scripts": {
+    "dev": "$(npm bin)/parallelshell 'npm run webpack:watch' 'npm run server:dev'",
+    "server:dev": "NODE_ENV=development PORT=3000 HEALTH_CHECK=true DEBUG=supermoon:* nodemon ./index.js",
     "server": "NODE_ENV=production PORT=3000 HEALTH_CHECK=true node ./index.js",
-    "server:dev": "NODE_ENV=development PORT=3000 HEALTH_CHECK=true DEBUG=supermoon:* nodemon ./index.js"
+    "start": "npm run server",
+    "webpack:watch": "$(npm bin)/webpack --watch",
+    "webpack": "$(npm bin)/webpack"
   }
 }
