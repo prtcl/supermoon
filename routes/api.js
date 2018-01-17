@@ -1,21 +1,15 @@
+const express = require('express');
+const db = require('../db');
+const router = express.Router();
 
-const express = require('express'),
-      router = express.Router();
+router.get('/sites', (req, res) => {
+  db.get('sites').find({})
+    .then((data) => {
+      res.status(200).json(data.sort((a, b) => a.id - b.id));
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
 
-var _ = require('lodash');
-
-module.exports = function (db) {
-
-  router.get('/sites', function (req, res) {
-    db.get('sites').find({})
-      .on('error', (err) => {
-        res.status(500).json({ error: err.message });
-      })
-      .on('success', (docs) => {
-        var sites = _.sortBy(docs, site => site.id);
-        res.status(200).json(sites);
-      });
-  });
-
-  return router;
-};
+module.exports = router;

@@ -1,22 +1,16 @@
 #!/usr/bin/env node
-
-const express = require('express'),
-      path = require('path'),
-      logger = require('morgan'),
-      cookieParser = require('cookie-parser'),
-      bodyParser = require('body-parser'),
-      favicon = require('serve-favicon'),
-      plonk = require('plonk');
-
-const app = express(),
-      debug = require('debug')('supermoon:server'),
-      server = require('http').Server(app);
-
-const PORT = process.argv[2] || process.env.PORT || '3000',
-      NODE_ENV = process.env.NODE_ENV = (process.argv[3] || process.env.NODE_ENV || 'development'),
-      HEALTH_CHECK = (process.env.HEALTH_CHECK === 'true');
-
-const db = require('monk')('localhost/supermoon');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const favicon = require('serve-favicon');
+const app = express();
+const debug = require('debug')('supermoon:server');
+const server = require('http').Server(app);
+const PORT = process.env.PORT;
+const NODE_ENV = process.env.NODE_ENV;
+const HEALTH_CHECK = process.env.HEALTH_CHECK;
 
 app.set('port', PORT);
 app.set('environment', NODE_ENV);
@@ -39,12 +33,11 @@ if (NODE_ENV === 'production') {
 }
 
 if (HEALTH_CHECK) {
-  const healthCheck = require('./lib/health-check')(db);
-  healthCheck.run();
+  require('./lib/HealthCheck').run();
 }
 
 app.use('/stream', require('./routes/stream'));
-app.use('/api', require('./routes/api')(db));
+app.use('/api', require('./routes/api'));
 app.use('/', require('./routes/pages'));
 
 // catch 404 and forward to error handler
