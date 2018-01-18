@@ -1,0 +1,36 @@
+@import '../../less/variables';
+
+.Modal {
+  align-items: center;
+  background-color: @color-gray;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  opacity: 1;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+
+  &__content {
+    padding: 2em;
+    width: 38.19660112501453%;
+    background-color: @color-black;
+    z-index: 50;
+    border-radius: 5px;
+    color: white;
+
+    @media (max-width: 1024px) {
+      width: 50%;
+    }
+    @media (max-width: 555px) {
+      width: 95%;
+    }
+
+    a {
+      color: white;
+    }
+  }
+}

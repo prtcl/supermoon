@@ -11,6 +11,7 @@
   },
   "main": "index.js",
   "dependencies": {
+    "@hyperapp/html": "^1.0.1",
     "@hyperapp/logger": "^0.4.1",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",

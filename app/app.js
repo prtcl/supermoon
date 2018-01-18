@@ -1,19 +1,30 @@
 import { h, app } from 'hyperapp';
+import logger from '@hyperapp/logger';
 import { state, actions } from './store';
+import './app.less';
 import InfoModal from './components/InfoModal';
 import SiteSelect from './components/SiteSelect';
 import Footer from './components/Footer';
 
-const view = ({ sites }, { selectSite, runVisualization }) => (
-  h('main', {}, [
-    SiteSelect({ sites, onSelectSite: selectSite }),
+const view = ({
+  shouldShowModal,
+  sites
+}, {
+  selectSite,
+  runVisualization
+}) => (
+  h('main', { class: 'app' }, [
+    !shouldShowModal && SiteSelect({
+      sites,
+      onSelectSite: selectSite
+    }),
     Footer(),
-    InfoModal({ onClose: runVisualization })
+    shouldShowModal ? InfoModal({ onClose: runVisualization }) : null
   ])
 );
 
 const run = () => {
-  const { fetchSites } = app(
+  const { fetchSites } = logger()(app)(
     state,
     actions,
     view,

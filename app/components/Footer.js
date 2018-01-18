@@ -1,11 +1,12 @@
-import { h } from 'hyperapp';
+import { p, a, footer } from '@hyperapp/html';
+import './Footer.less';
 
 const Footer = () => (
-  h('footer', {}, [
-    h('p', {}, [
-      h('a', { href: 'https://github.com/prtcl/supermoon' }, 'Supermoon'),
+  footer({ class: 'Footer' }, [
+    p({}, [
+      a({ href: 'https://github.com/prtcl/supermoon' }, 'Supermoon'),
       ' by ',
-      h('a', { href: 'http://prtcl.cc' }, 'Cory O\'Brien'),
+      a({ href: 'http://prtcl.cc' }, 'Cory O\'Brien'),
       ' © 2015-2018'
     ])
   ])

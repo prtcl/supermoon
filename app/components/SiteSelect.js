@@ -1,11 +1,15 @@
-import { h } from 'hyperapp';
+import { option, select } from '@hyperapp/html';
+import './SiteSelect.less';
 
 const Site = ({ site }) => (
-  h('option', { value: site.id }, site.name)
+  option({ value: site.id }, `${site.name} (${site.lat}, ${site.lng})`)
 );
 
 const SiteSelect = ({ sites, onSelectSite }) => (
-  h('select', { onchange: (e) => onSelectSite(e.target.value) }, [
+  select({
+    class: 'SiteSelect',
+    onchange: (e) => onSelectSite(e.target.value)
+  }, [
     sites.map((site) => Site({ site }))
   ])
 );
