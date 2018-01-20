@@ -5,6 +5,10 @@ import './app.less';
 import InfoModal from './components/InfoModal';
 import SiteSelect from './components/SiteSelect';
 import Footer from './components/Footer';
+import * as SynthEngine from './synth';
+
+window.SynthEngine = SynthEngine;
+console.log(window.synth = SynthEngine.create());
 
 const view = ({
   shouldShowModal,
