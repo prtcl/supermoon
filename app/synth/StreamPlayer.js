@@ -5,6 +5,9 @@ export const MimeTypes = {
 };
 
 export const canPlayType = () => {
+  if (typeof Audio !== 'function') {
+    return false;
+  }
   const audio = new Audio();
   if (audio.canPlayType(`${MimeTypes.OGG}; codecs="vorbis"`) === 'probably') {
     return MimeTypes.OGG;
@@ -13,6 +16,7 @@ export const canPlayType = () => {
       audio.canPlayType(`${MimeTypes.MP3};`) === 'maybe') {
     return MimeTypes.MP3;
   }
+  return false;
 };
 
 export default class StreamPlayer {

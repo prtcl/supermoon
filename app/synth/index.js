@@ -1,5 +1,5 @@
 import * as helpers from './helpers';
-import { canPlayType } from './StreamPlayer';
+import { canPlayType, MimeTypes } from './StreamPlayer';
 
 export const AudioContext = [
   window.AudioContext,
@@ -7,14 +7,16 @@ export const AudioContext = [
 ].find((c) => typeof c !== 'undefined');
 
 export const isCompatibleBrowser = () => {
-  if (AudioContext &&
-      typeof AudioContext.prototype.createGain === 'function' &&
-      typeof AudioContext.prototype.createMediaElementSource === 'function' &&
-      !!canPlayType()
-    ) {
-    return true;
+  if (canPlayType() !== MimeTypes.OGG) {
+    return false;
   }
-  return false;
+  if (!AudioContext ||
+      typeof AudioContext.prototype.createGain !== 'function' ||
+      typeof AudioContext.prototype.createMediaElementSource !== 'function'
+    ) {
+    return false;
+  }
+  return true;
 };
 
 export const create = () => {

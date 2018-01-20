@@ -13,8 +13,17 @@ export const addSites = (sites) => (state) => ({
     .sort((a, b) => a.name.localeCompare(b.name))
 });
 
-export const selectSite = (id) => (state, { setIsLoading }) => {
+export const selectSite = (id) => ({ sites, synth }, { setIsLoading, showError }) => {
+  const site = sites.find((s) => s.id === id);
   setIsLoading(true);
+  return synth.setStreamSource(site.stream)
+    .then(() => {
+      setIsLoading(false);
+      synth.play();
+    })
+    .catch((err) => {
+      showError(err.message);
+    });
 };
 
 export const setIsLoading = (isLoading) => (state) => ({
@@ -22,8 +31,27 @@ export const setIsLoading = (isLoading) => (state) => ({
   isLoading
 });
 
-export const runVisualization = () => (state) => ({
+export const showError = (error) => (state) => ({
   ...state,
-  isRunning: true,
-  shouldShowModal: false
+  error
 });
+
+export const showUnsupportedError = () => (state) => ({
+  ...state,
+  error: 'It doesn\'t look like your browser supports Web Audio and ogg/vorbis playback. Please use a recent version of Chrome or Firefox.',
+  isLoading: false,
+  isRunning: false,
+  shouldShowModal: false,
+});
+
+export const runVisualization = () => (state, { showUnsupportedError }) => {
+  if (!SynthEngine.isCompatibleBrowser()) {
+    return showUnsupportedError();
+  }
+  return {
+    ...state,
+    isRunning: true,
+    shouldShowModal: false,
+    synth: SynthEngine.create()
+  };
+};

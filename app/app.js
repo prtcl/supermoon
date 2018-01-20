@@ -18,11 +18,13 @@ const view = ({
   runVisualization
 }) => (
   h('main', { class: 'app' }, [
-    isRunning && SiteSelect({
-      sites,
-      onSelectSite: selectSite
-    }),
-    Footer(),
+    isRunning && [
+      SiteSelect({
+        sites,
+        onSelectSite: selectSite
+      }),
+      Footer()
+    ],
     shouldShowModal && InfoModal({ onClose: runVisualization }),
     isLoading && ErrorModal({ error: 'Loading...' }),
     error && ErrorModal({ error })
