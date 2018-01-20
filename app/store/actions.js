@@ -10,7 +10,10 @@ export const fetchSites = () => (state, { handleSites, selectSite }) => (
     })
 );
 
-export const handleSites = (sites) => (state) => ({ ...state, sites });
+export const handleSites = (sites) => (state) => ({
+  ...state,
+  sites: sites.filter((s) => s.isHealthy)
+});
 
 export const selectSite = (id) => () => console.log(id);
 

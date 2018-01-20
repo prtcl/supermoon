@@ -49,4 +49,8 @@ module.exports = [
     lat: 33.6213,
     lng: 78.9649
   }
-];
+].map((s) => ({
+  ...s,
+  isHealthy: false,
+  stream: `/stream/${s.id}`
+}));
