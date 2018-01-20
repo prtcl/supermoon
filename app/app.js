@@ -5,25 +5,27 @@ import './app.less';
 import InfoModal from './components/InfoModal';
 import SiteSelect from './components/SiteSelect';
 import Footer from './components/Footer';
-import * as SynthEngine from './synth';
-
-window.SynthEngine = SynthEngine;
-console.log(window.synth = SynthEngine.create());
+import ErrorModal from './components/ErrorModal';
 
 const view = ({
+  error,
+  isLoading,
+  isRunning,
   shouldShowModal,
-  sites
+  sites,
 }, {
   selectSite,
   runVisualization
 }) => (
   h('main', { class: 'app' }, [
-    !shouldShowModal && SiteSelect({
+    isRunning && SiteSelect({
       sites,
       onSelectSite: selectSite
     }),
     Footer(),
-    shouldShowModal ? InfoModal({ onClose: runVisualization }) : null
+    shouldShowModal && InfoModal({ onClose: runVisualization }),
+    isLoading && ErrorModal({ error: 'Loading...' }),
+    error && ErrorModal({ error })
   ])
 );
 

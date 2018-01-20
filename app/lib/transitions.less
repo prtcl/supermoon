@@ -1,0 +1,39 @@
+@import '../../less/variables';
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.fade {
+  &--entering {
+    animation: fade-in @fade-in-duration ease-in-out;
+    opacity: 1;
+  }
+
+  &--entered {
+    opacity: 1;
+  }
+
+  &--exiting {
+    animation: fade-out @fade-out-duration ease-in-out;
+    opacity: 0;
+  }
+
+  &--exited {
+    opacity: 0;
+  }
+}

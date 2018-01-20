@@ -1,28 +1,26 @@
 import { div, h1 } from '@hyperapp/html';
-import { exit } from 'hyperapp-transitions';
+import { fadeIn, fadeOut } from '../lib/transitions';
 import './Modal.less';
 import Button from './Button';
-import { FADE_OUT_DURATION } from '../constants/ui';
 
 const Modal = ({
+  class: parentClass,
   button = null,
   title = null,
   onClose = () => null
 }, children) => (
-  exit({
-    time: FADE_OUT_DURATION,
-    easing: 'ease-in-out',
-    css: { opacity: 0 }
+  div({
+    class: parentClass ? ['Modal', parentClass].join(' ') : 'Modal',
+    oncreate: (element) => fadeIn(element),
+    onremove: (element, done) => fadeOut(element).then(done)
   }, [
-    div({ class: 'Modal' }, [
-      div({ class: 'Modal__content' }, [
-        title && h1({}, title),
-        children,
-        button && Button({
-          text: button,
-          onClick: onClose
-        })
-      ])
+    div({ class: 'Modal__content' }, [
+      title && h1({}, title),
+      children,
+      button && Button({
+        text: button,
+        onClick: onClose
+      })
     ])
   ])
 );

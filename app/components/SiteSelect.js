@@ -8,7 +8,8 @@ const Site = ({ site }) => (
 const SiteSelect = ({ sites, onSelectSite }) => (
   select({
     class: 'SiteSelect',
-    onchange: (e) => onSelectSite(e.target.value)
+    onchange: (e) => onSelectSite(e.target.value),
+    oncreate: (el) => onSelectSite(el.value)
   }, [
     sites.map((site) => Site({ site }))
   ])

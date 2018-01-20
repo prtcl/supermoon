@@ -1,22 +1,29 @@
+import * as SynthEngine from '../synth';
 
-export const showModal = (shouldShowModal) => (state) => ({ ...state, shouldShowModal });
-
-export const fetchSites = () => (state, { handleSites, selectSite }) => (
+export const fetchSites = () => (state, { addSites }) => (
   fetch('/api/sites')
     .then((res) => res.json())
-    .then((sites) => {
-      handleSites(sites);
-      selectSite(sites[0].id);
-    })
+    .then(addSites)
 );
 
-export const handleSites = (sites) => (state) => ({
+export const addSites = (sites) => (state) => ({
   ...state,
-  sites: sites.filter((s) => s.isHealthy)
+  sites: sites
+    .filter((s) => s.isHealthy)
+    .sort((a, b) => a.name.localeCompare(b.name))
 });
 
-export const selectSite = (id) => () => console.log(id);
-
-export const runVisualization = () => (state, { showModal }) => {
-  showModal(false);
+export const selectSite = (id) => (state, { setIsLoading }) => {
+  setIsLoading(true);
 };
+
+export const setIsLoading = (isLoading) => (state) => ({
+  ...state,
+  isLoading
+});
+
+export const runVisualization = () => (state) => ({
+  ...state,
+  isRunning: true,
+  shouldShowModal: false
+});
