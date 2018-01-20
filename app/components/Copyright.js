@@ -1,8 +1,8 @@
 import { p, a, footer } from '@hyperapp/html';
-import './Footer.less';
+import './Copyright.less';
 
-const Footer = () => (
-  footer({ class: 'Footer' }, [
+const Copyright = () => (
+  footer({ class: 'Copyright' }, [
     p({}, [
       a({ href: 'https://github.com/prtcl/supermoon' }, 'Supermoon'),
       ' by ',
@@ -12,4 +12,4 @@ const Footer = () => (
   ])
 );
 
-export default Footer;
+export default Copyright;
