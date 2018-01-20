@@ -225,7 +225,10 @@ module.exports = {
       "error",
       "always"
     ],
-    "operator-linebreak": "error",
+    "operator-linebreak": [
+      "error",
+      "after"
+    ],
     "padded-blocks": "off",
     "prefer-arrow-callback": "off",
     "prefer-const": "off",
