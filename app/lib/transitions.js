@@ -1,6 +1,8 @@
 import { wait } from 'plonk';
-import { FADE_IN_DURATION, FADE_OUT_DURATION } from '../constants/ui';
 import './transitions.less';
+
+export const FADE_IN_DURATION = 375;
+export const FADE_OUT_DURATION = 650;
 
 export const fadeIn = (element) => {
   element.classList.add('fade--entering');
