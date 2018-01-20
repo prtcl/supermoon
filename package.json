@@ -21,7 +21,7 @@
     "express-session": "^1.15.6",
     "hyperapp": "^1.0.2",
     "hyperapp-transitions": "^0.10.1",
-    "lodash": "^4.17.4",
+    "lodash-es": "^4.17.4",
     "mongodb": "^3.0.1",
     "monk": "^6.0.5",
     "morgan": "^1.9.0",
@@ -50,6 +50,7 @@
     "webpack": "^3.10.0"
   },
   "scripts": {
+    "clean": "rm -r ./node_modules ; rm -r ./static/dist",
     "dev": "$(npm bin)/parallelshell 'npm run webpack:watch' 'npm run server:dev'",
     "server:dev": "NODE_ENV=development PORT=3000 HEALTH_CHECK=true DEBUG=supermoon:* nodemon ./index.js",
     "server": "NODE_ENV=production PORT=3000 HEALTH_CHECK=true node ./index.js",
