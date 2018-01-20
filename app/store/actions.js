@@ -41,7 +41,7 @@ export const showUnsupportedError = () => (state) => ({
   error: 'It doesn\'t look like your browser supports Web Audio and ogg/vorbis playback. Please use a recent version of Chrome or Firefox.',
   isLoading: false,
   isRunning: false,
-  shouldShowModal: false,
+  shouldShowInfo: false,
 });
 
 export const runVisualization = () => (state, { showUnsupportedError }) => {
@@ -51,7 +51,7 @@ export const runVisualization = () => (state, { showUnsupportedError }) => {
   return {
     ...state,
     isRunning: true,
-    shouldShowModal: false,
+    shouldShowInfo: false,
     synth: SynthEngine.create()
   };
 };

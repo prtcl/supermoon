@@ -2,7 +2,7 @@
 export default {
   error: null,
   isRunning: false,
-  shouldShowModal: true,
+  shouldShowInfo: true,
   sites: [],
   synth: null
 };
