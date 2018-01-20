@@ -4,6 +4,7 @@ import Modal from './Modal';
 const InfoModal = (props) => (
   Modal({
     ...props,
+    class: 'InfoModal',
     button: 'Play',
     title: 'Supermoon'
   }, [

@@ -4,12 +4,14 @@ import './Modal.less';
 import Button from './Button';
 
 const Modal = ({
-  class: parentClass,
   button = null,
+  class: parentClass,
   title = null,
-  onClose = () => null
+  onClose = () => null,
+  ...rest
 }, children) => (
   div({
+    ...rest,
     class: parentClass ? ['Modal', parentClass].join(' ') : 'Modal',
     oncreate: (element) => fadeIn(element),
     onremove: (element, done) => fadeOut(element).then(done)
