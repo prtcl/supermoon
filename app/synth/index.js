@@ -1,4 +1,5 @@
 import * as helpers from './helpers';
+import bindHelpers from '../lib/bindHelpers';
 import { canPlayType, MimeTypes } from './StreamPlayer';
 
 export const AudioContext = [
@@ -27,11 +28,7 @@ export const create = () => {
     createFilter,
     createGain,
     createStreamPlayer
-  } = Object.entries(helpers)
-    .reduce((res, [name, helper]) => ({
-      ...res,
-      [name]: helper(context)
-    }), {});
+  } = bindHelpers(context)(helpers);
   const analyser = createAnalyser({ size: 512 });
   const streamPlayer = createStreamPlayer();
   const nodes = {
