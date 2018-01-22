@@ -26,8 +26,6 @@ export default class StreamPlayer {
     this.audio.type = this.type;
     this.node = context.createMediaElementSource(this.audio);
     this.url = '';
-
-    window.a = this;
   }
 
   setStreamSource (url) {
