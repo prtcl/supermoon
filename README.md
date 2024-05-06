@@ -1,5 +1,5 @@
-## NOTE
-Supermoon is now offline and deprecated due to VLF stream availablibilty. This repo is for historical purposes only.
+## 🗒️ Note
+Supermoon is now offline and deprecated due to lack of VLF stream availability. This repo is for historical purposes only.
 
 # Supermoon
 
